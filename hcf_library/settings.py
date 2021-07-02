@@ -39,7 +39,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    ### Local ###
+    'users.apps.UsersConfig',
     'library.apps.LibraryConfig',
+
+    ### Third Party ###
+    'bootstrap_modal_forms',
+    'widget_tweaks',
+    'bootstrap4',
+    'django_forms_bootstrap',
 ]
 
 MIDDLEWARE = [
@@ -116,11 +125,15 @@ USE_L10N = True
 
 USE_TZ = True
 
+AUTH_USER_MODEL = 'users.CustomUser'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_ROOT = BASE_DIR / 'media'
+media_url = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
