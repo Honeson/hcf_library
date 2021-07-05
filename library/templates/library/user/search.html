@@ -1,0 +1,37 @@
+{% extends 'library/user/base.html' %}
+
+{% block title %} <title>Search</title> {% endblock title %}
+
+
+{% block content %}
+
+
+    {% if q %}
+    <h2>Posts containing "{{ q }}"</h2>
+    <p>
+    {% with results.count as total_results %}
+        Found {{ total_results }} result{{ total_results|pluralize }}
+        {% endwith %}
+    </p>
+    {% for result in results %}
+        <div class="container">
+            <a href="{{ result.get_absolute_url }}"><h3>{{ result.title }}</h3></a>
+            <p>{{ result.desc }}</p>
+        </div>
+    {% empty %}
+    <p>No result found
+    </p>
+    {% endfor %}
+    <p><a href="{% url 'user_search' %}" class="btn btn-primary mt-5" role="button" aria-disabled="true">
+        Search Again</a>
+    </p>
+    {% else %}
+   <div class="container">
+       <p>Search for posts</p>
+    <form method="get">
+        {{ form.as_p }}
+        <input type="submit" class="btn btn-primary my-1" value="Search">
+    </form>
+    </div>  
+    {% endif %}
+{% endblock content %}
