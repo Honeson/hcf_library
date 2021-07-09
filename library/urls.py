@@ -22,6 +22,9 @@ from .views import (
      publisher_detail,
      PublisherChatList,
      PublisherCreateChat,
+     PublisherManagePost,
+     PublisherDeleteView,
+     PublisherDetailView,
 )
 from django.contrib.auth import views as auth_views
 
@@ -48,7 +51,10 @@ urlpatterns = [
      path('publisher-search/', publisher_search, name='publisher_search'),
      path('publisher-create-chat/', PublisherCreateChat.as_view(), name='publisher_create_chat'),
      path('publisher-chat-list/', PublisherChatList.as_view(), name='publisher_chat_list'),
-      path('publisher/<slug:slug>/', publisher_detail, name='publisher_detail'),
+     path('publisher-manage-post/', PublisherManagePost.as_view(), name='publisher_manage_posts'),
+     path('publisher/<slug:slug>/', publisher_detail, name='publisher_detail'),
+     path('publisher-deelete-post/<slug:slug>', PublisherDeleteView.as_view(), name='publisher_delete_post'),
+      path('publisher-detail/<slug:slug>', PublisherDetailView.as_view(), name='publisher_detail'),
 
 
      # User's URLs

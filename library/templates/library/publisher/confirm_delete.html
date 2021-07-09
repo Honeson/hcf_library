@@ -1,0 +1,49 @@
+{% extends 'library/publisher/base.html' %}
+
+
+
+
+{% block body %}
+<div class="col-10 container-fluid">
+        <div class="row">
+          <div class="col-12 mb-3">
+          <div class="col-12 mb-3">
+              <div id="content-wrapper">
+        <div class="container-fluid">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                   Confirm Delete
+            </ol>
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="fas fa-table text-warning"></i>
+                    <a href="">Post Title : {{ object.title }} </a>
+                </div>
+                <div class="card-body">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+
+    <div class="row">
+        <div class="col-12">
+            <form method="post">
+                {% csrf_token %}
+                <div class="alert alert-warning" role="alert">
+                  Are you sure to delete {{ object }} ?
+                </div>
+                <input type="submit" class="btn btn-danger" value="Yes, Sure" />
+                <a class="btn btn-success" href="{% url 'publisher_manage_posts' %}">No, Back</a>
+            </form>
+        </div>
+    </div>
+
+                  
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

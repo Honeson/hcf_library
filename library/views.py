@@ -264,6 +264,34 @@ class PublisherChatList(LoginRequiredMixin, ListView):
 	def get_queryset(self):
 		return Chat.objects.filter(posted_at__lte=timezone.now()).order_by('-posted_at')
 
+class PublisherManagePost(LoginRequiredMixin,ListView):
+	model = Post
+	template_name = 'library/publisher/manage_posts.html'
+	context_object_name = 'posts'
+	paginate_by = 3
+
+	def get_queryset(self):
+		return Post.objects.order_by('-id')
+
+class PublisherDetailView(LoginRequiredMixin, DetailView):
+	model = Post
+	template_name = 'library/publisher/post_detail.html'
+
+class PublisherEditView(LoginRequiredMixin,UpdateView):
+	model = Post
+	#form_class = PostForm
+	template_name = 'library/publisher/edit_post.html'
+	success_url = reverse_lazy('publisher_manage_posts')
+	success_message = 'Data was updated successfully'
+
+
+class PublisherDeleteView(LoginRequiredMixin,DeleteView):
+	model = Post
+	template_name = 'library/publisher/confirm_delete.html'
+	success_url = reverse_lazy('publisher_manage_posts')
+	success_message = 'Data was deleted successfully'
+
+
 ### FOR ADMIN ### 
 @login_required
 def admin_view(request):

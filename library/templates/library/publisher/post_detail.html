@@ -1,0 +1,104 @@
+{% extends 'library/publisher/base.html' %}
+{% load static %}
+
+{% block body %}
+<div class="col-10 container-fluid">
+        <div class="row">
+          <div class="col-12 mb-3">
+          <div class="col-12 mb-3">
+              <div id="content-wrapper">
+        <div class="container-fluid">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="">Post Title : {{ object.title }} </a>
+            </ol>
+            <div class="card mb-3 justify-content-center">
+                <div class="card-header">
+                    <i class="fas fa-table text-warning"></i>
+                    <h1>Decription</h1>
+                </div>
+                <div class="card-body">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+
+ <div class="row">
+        <div class="col-12">
+            <h3>{{ object.title }}</h3>
+            <p>{{ object.desc }}</p>
+            <hr>
+            By <strong>{{ object.author }}</strong> | {{ object.published_date }}
+        </div>
+    </div>
+
+
+          </div>
+          <hr>
+          <div class="card mb-3">
+            <div class="card-header">
+                <i class="fas fa-table text-warning"></i>
+                Content
+            </div>
+            <div class="card-body">
+                {% if post.file %}
+                {% if post.extension == '.jpg' or post.extension == '.jpeg' or post.extension == '.png' or post.extension == '.gif' or post.extension == '.webp' %}
+                  <img src="{{ post.file.url }}" alt="{{ post.title}}" width="320" height="240">
+
+                {% elif post.extension == '.mp4' or post.extension == '.mpeg' or post.extension == '.ogg'  %}
+                <video width="320" height="240" controls>
+                {% if post.extension == '.mp4' %}
+                  <source src="{{ post.file.url }}" type="video/mp4">
+                  {% elif post.extension == '.ogg' %}
+                  <source src="{{ post.file.url }}" type="video/ogg">
+                  {% else %}
+                Your browser does not support the video tag.
+                {% endif %}
+                </video>
+                 
+
+                {% elif post.extension == '.mp3' or post.extension == '.aac' or post.extension == '.mid' or post.extension == '.midi' or post.extension == '.oga' or post.extension == '.opus' or post.extension == '.wav' or  post.extension == '.weba' %}
+                <audio controls>
+                  {% if post.extension == '.mp3' %}
+                    <source src="{{ post.file.url }}" type="audio/mpeg">
+                    {% elif post.extension == '.ogg' %}
+                    <source src="{{ post.file.url }}" type="audio/ogg">
+                    {% else %}
+                  Your browser does not support the video tag.
+                  {% endif %}
+                </audio>
+
+                {% elif post.extension == '.zip' or post.extension == '.7z' or post.extension == '.doc' or post.extension == '.pdf' or post.extension == '.txt' or post.extension == '.xls' or post.extension == '.csv' %}
+                  <p>You can't preview this file. Kindly download to view.</p>  
+                <a href="{{ post.publisher_get_absolute_url }}" class="btn btn-outline-primary">View more</a>
+                {% elif post.extension == '' %}
+                <span class="text-muted">No content</span>
+                {% else %}
+                    <span>File type not recognized</span>
+                {% endif %}
+              {% else %}
+                <span class="text-muted">No content</span>
+              {% endif %}
+
+            </div>
+        </div>
+        <div class="row top-buffer" style="padding-top: 10px">
+            <div class="col-12">
+                    <a href="{% url 'publisher_manage_posts' %}"><button type="button" class="btn btn-success">Back</button></a>
+            </div>
+        </div>
+        </div>
+      </div>
+      
+              </div>
+          </div>
+          </div>
+        </div>
+        
+        </div>
+        
+          
+
+
+{% endblock %}
