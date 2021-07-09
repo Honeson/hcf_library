@@ -8,8 +8,8 @@ from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.db.models import Sum
 from django.views.generic import CreateView, DetailView, DeleteView, UpdateView, ListView, TemplateView
-from .forms import ChatForm, CategoryForm, SearchForm
-#from .forms import ChatForm, BookForm, UserForm
+from .forms import ChatForm, CategoryForm, SearchForm, AddPostForm
+#from .forms import ChatForm, BookForm, UserForm, AddPostForm
 from . import models
 from .models import Chat, Post, FeedBack, Category
 import operator
@@ -33,6 +33,9 @@ class AboutUsView(TemplateView):
 
 # def login_form(request):
 #     return render(request, 'library/login.html')
+
+
+### GENERAL ###
 def user_registration_form(request):
      return render(request, 'library/register.html')
 
@@ -91,7 +94,7 @@ class UserPostListView(LoginRequiredMixin, ListView):
 	paginate_by = 5
 
 	def get_queryset(self):
-		return Post.objects.filter(status='p').order_by('-id')
+		return Post.objects.filter(status='p')
 
 
 class UserCreateChat(LoginRequiredMixin, CreateView):
@@ -177,11 +180,91 @@ def category_list(request):
     return context
 
 
+
+
+### FOR PUBLISHER ### 
+@login_required
+def publisher_view(request):
+	form = SearchForm()
+	posts = Post.objects.all()
+	users = CustomUser.objects.all()
+	context = {'posts': posts, 'users': users, 'form': form}
+	return render(request, 'library/publisher/home.html', context)
+
+@login_required
+def publisher_add_post(request):
+	form = AddPostForm()
+	if request.method == 'POST':
+		title = request.POST['title']
+		desc = request.POST['desc']
+		file = request.FILES.get('file', '')
+		current_user = request.user
+		author = current_user
+
+		newpost = Post(title=title, author=author, desc=desc, file=file)
+		newpost.save()
+		messages.success(request, 'Post was uploaded successfully')
+		return redirect('publisher_list')
+	else:
+		messages.error(request, 'Post was not uploaded successfully')
+		return render(request, 'library/publisher/add_post.html', {'form': form})
+
+
+class PublisherPostListView(LoginRequiredMixin, ListView):
+	model = Post
+	template_name = 'library/publisher/post_list.html'
+	context_object_name = 'all_posts'
+	paginate_by = 5
+
+	def get_queryset(self):
+		return Post.objects.filter(status='p')
+
+def publisher_search(request):
+    form = SearchForm()
+    q = ''
+    c = ''
+    results = []
+    query = Q()
+    if 'q' in request.GET:
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            q = form.cleaned_data['q']
+            c = form.cleaned_data['c']
+
+            if c is not None:
+                query &= Q(category=c)
+            if q is not None:
+                query &= Q(title__contains=q, status='p')
+            results = Post.objects.filter(query)
+    return render(request, 'library/publisher/search.html', {'form': form, 'q': q, 'results': results})
+
+
+def publisher_detail(request, slug):
+	post = get_object_or_404(Post, slug=slug)
+	return render(request, 'library/publisher/detail.html', {'post': post})
+
+
+class PublisherCreateChat(LoginRequiredMixin, CreateView):
+	form_class = ChatForm
+	model = Chat
+	template_name = 'library/publisher/chat_form.html'
+	success_url = reverse_lazy('publisher_chat_list')
+
+	def form_valid(self, form):
+		self.object = form.save(commit=False)
+		self.object.user = self.request.user
+		self.object.save()
+		return super().form_valid(form)
+
+class PublisherChatList(LoginRequiredMixin, ListView):
+	model = Chat
+	template_name = 'library/publisher/chat_list.html'
+	context_object_name = 'chats'
+
+	def get_queryset(self):
+		return Chat.objects.filter(posted_at__lte=timezone.now()).order_by('-posted_at')
+
+### FOR ADMIN ### 
 @login_required
 def admin_view(request):
     return render(request, 'library/admin/home.html')
-
-
-@login_required
-def publisher_view(request):
-    return render(request, 'library/publisher/home.html')

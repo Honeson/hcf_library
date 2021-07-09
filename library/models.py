@@ -36,9 +36,8 @@ class Post(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=250, unique_for_date='published_date')
     author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='library_posts', blank=True, null=True)
-    category = models.ForeignKey(Category, on_delete=models.PROTECT)
+    category = models.ForeignKey(Category, on_delete=models.PROTECT, default=1)
     desc = models.CharField(max_length=1000)
-    user_id = models.CharField(max_length=100, null=True, blank=True)
     file = models.FileField(upload_to=user_directory_path, null=True, blank=True)
     status = models.CharField(max_length=1, choices=choices, default='p')
     published_date = models.DateTimeField(default=timezone.now)
@@ -62,6 +61,12 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse('user_detail', args=[self.slug])
+
+    def publisher_get_absolute_url(self):
+        return reverse('publisher_detail', args=[self.slug])
+
+    class Meta:
+        ordering = ('-published_date',)
 
 
 class Chat(models.Model):
