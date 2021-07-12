@@ -65,6 +65,9 @@ class Post(models.Model):
     def publisher_get_absolute_url(self):
         return reverse('publisher_detail', args=[self.slug])
 
+    def admin_get_absolute_url(self):
+        return reverse('admin_detail', args=[self.slug])
+
     class Meta:
         ordering = ('-published_date',)
 
@@ -80,6 +83,8 @@ class Chat(models.Model):
 
 class FeedBack(models.Model):
     feedback = models.CharField(max_length=500, null=True, blank=True) 
+    author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, blank=True, null=True)
+    published_date = models.DateTimeField(auto_now=True, blank=True, null=True)
 
     def __str(self):
         return self.feedback

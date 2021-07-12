@@ -96,7 +96,7 @@
                 <a href="{% url 'publisher_detail' post.slug %}"><button type="button" class="btn btn-primary"> View</button></a>
                  </td>
                 <td>
-                <a href=""><button type="button" class="btn btn-warning"> Edit</button></a>
+                <a href="{% url 'publisher_update' post.slug %}"><button type="button" class="btn btn-warning"> Edit</button></a>
               </td>
           <td>
           <a href="{% url 'publisher_delete_post' post.slug %}"><button type="button" class="btn btn-danger"> Delete</button></a>

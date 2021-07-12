@@ -1,0 +1,96 @@
+{% extends 'library/admin/base.html' %}
+
+{% block title %}
+
+{% endblock title %}
+
+{% block content %}
+
+<div class="col-10 container-fluid">
+<div class="row">
+<div class="col-sm-3" style="color: red">
+  <p style="color: blue"></p>  
+</div>
+
+
+
+<div class="col-sm-6" style="padding-top: 25px">
+
+
+<div class="card mb-2">
+<div class="card-body">
+
+<div class="row">
+    <div class="col-sm-8">
+      <a href="{% url 'admin_feedback_list' %}"><button class="btn btn btn-primary"><i class="fa fa-refresh" aria-hidden="true"></i>
+        Rerfresh For Any New Feedbacks</button></a><br><br><br>
+    {% for feedback in feedbacks %}
+
+
+        <div class="chat" style="width: 150%; background: white; box-shadow: 2px 0px 25px 20px rgb(17, 17, 17);">
+                <ol class="breadcrumb">
+                  <li class="breadcrumb-item">
+                <strong><small class="chat-user-special text-primary"> {{ feedback.feedback }}</small></strong>
+                <hr>
+                {{ feedback.published_date }}
+              </li>
+              </ol>
+        </div><br><br><br>
+
+    {% empty %}
+    <h1 class="heading">No Feedback yet</h1><br>
+
+    {% endfor %}
+
+    <div class="col-sm-4"></div>
+    </div>
+
+
+                      </div>
+                    </div>  
+
+
+                    {% if is_paginated %}
+                    <ul class="pagination justify-content-center">
+                      {% if page_obj.has_previous %}
+                        <li class="page-item"> <a class="page-link" href="?page={{ page_obj.previous_page_number }} " 
+                          aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+                          <span>Previous</span></a></li>
+                      {% endif %}
+                      {% for i in paginator.page_range %}
+                        {% if page_obj.number == i %}
+                          
+                          <li class="page-item active"><span class="page-link">{{ i }}<span class="sr-only"></span> </span>
+                          </li>
+                        {% else %}
+                          
+                          <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                      {% endfor %}
+                      {% if page_obj.has_next %}
+                      <li class="page-item">
+                        <a class="page-link" href="?page= {{ comments.next_page_number }}" aria-label="Previous">
+                          <span aria-hidden="true">&raquo;</span>
+                          <span>Next</span>
+                        </a>
+                      </li>
+                      {% endif %}
+                    </ul>
+                  {% endif %}
+                  
+
+                  </div>
+
+</div>
+
+
+</div>
+</div>
+
+
+{% endblock content %}
+
+
+
+
+

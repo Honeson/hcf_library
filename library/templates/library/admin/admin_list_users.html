@@ -1,0 +1,133 @@
+{% extends 'library/admin/base.html' %}
+
+{% block content %}
+
+        <div class="col-10 container-fluid">
+        <div class="row">
+          <div class="col-12 mb-3">
+          <div class="col-12 mb-3">
+            
+                <div id="content-wrapper">
+        <div class="container-fluid">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="">All Members</a>
+                </li>
+                <li class="breadcrumb-item active"></li>
+            </ol>
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="fa fa-table"></i>
+                    List Of Users
+                    <a  class="btn btn-sm btn-success" href="{% url 'admin_create_user' %}" 
+                    style="padding: 8px; float: right; background-color: green; color: white;">Add User</a>
+                </div>
+                <div class="card-body">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>S/N</th>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>User Role</th>
+                                <th>View</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                        {% if users %}
+                            {% for user in users %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ user.username }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>{% if user.is_publisher == True %}
+                                      <p>Publisher</p>
+                                    {% elif user.is_admin == True %}
+                                      <p>Admin</p>
+                                      {% elif user.is_superuser == True %}
+                                      <p>Super Admin</p>
+                                    {% else %}
+                                    <p>User</p> 
+                                      {% endif %}
+                                    </td>
+                                    
+                <td>
+                <a href="{% url 'admin_user_detail' user.pk %}"><button type="button" class="btn btn-primary"> View</button></a>
+                 </td>
+                <td>
+                <a href="{% url 'admin_user_update' user.pk %}"><button type="button" class="btn btn-warning"> Edit</button></a>
+        </td>
+        <td>
+          <a href="{% url 'admin_user_delete' user.pk %}">
+            <button type="button" class="btn btn-danger"> Delete</button></a></td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                            </tbody>
+                        </table>
+                  {% if is_paginated %}
+                  <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                      <li class="page-item"> <a class="page-link" href="?page={{ page_obj.previous_page_number }} " 
+                        aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+                        <span>Previous</span></a></li>
+                    {% endif %}
+                    {% for i in paginator.page_range %}
+                      {% if page_obj.number == i %}
+                        
+                        <li class="page-item active"><span class="page-link">{{ i }}<span class="sr-only"></span> </span>
+                        </li>
+                      {% else %}
+                        
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                      {% endif %}
+                    {% endfor %}
+                    {% if page_obj.has_next %}
+                    <li class="page-item">
+                      <a class="page-link" href="?page= {{ page_obj.next_page_number }}" aria-label="Previous">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span>Next</span>
+                      </a>
+                    </li>
+                    {% endif %}
+                  </ul>
+                {% endif %}
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+  </tbody>
+</table>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+{% endblock content %}
+
+{% block extrascripts %}
+  <script type="text/javascript">
+      $(function () {
+          // Hide message
+          $(".alert").fadeTo(2000, 500).slideUp(500, function () {
+              $(".alert").slideUp(500);
+          });
+      });
+  </script>
+{% endblock extrascripts %}

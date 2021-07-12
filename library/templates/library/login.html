@@ -1,8 +1,12 @@
 {% load static %}
-
-<video loop muted autoplay playsinline class="video">
-  <!-- <source src="{% static 'library/css/back.mp4' %}" type="video/mp4" /> -->
-</video>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+</html>
 <!-- Custom styles for this template-->
     <link href="{% static 'library/css/login.css' %}" rel="stylesheet">
     <link href="{% static 'library/css/bootstrap/bootstrap.min.js' %}" rel="stylesheet">
@@ -10,42 +14,38 @@
     <link href="{% static 'vendor/datatables/dataTables.bootstrap4.css' %}" rel="stylesheet">
     <link href="{% static 'vendor/datatables/dataTables.bootstrap4.css' %}" rel="stylesheet">
 
-
-    
-<head>
-	<title>Login</title>
-</head>
-<!--Coded with love by Mutiullah Samim-->
-<body> 
-
-
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
-
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
 
+    
+	<title>Login</title>
 
 
-<div class="container">
+  <style>
+    html,body{
+
+background-size: cover;
+background-repeat: no-repeat;
+height: 100%;
+font-family: 'Numans', sans-serif;
+}
+  </style>
+</head>
+<!--Coded with love by Mutiullah Samim-->
+<body id="login-body" style="background-image: url('{% static 'library/images/pex4.jpg' %}')">
+
+
+
+
+<div class="container justify-content-center">
 <br> 
 
 
-		 <h1 style="color: white" class="text-md-center">
-      <span class="g"></span><span class="o"></span><span class="o1">HCF LIBRARY</span> <span class="g">
-        
-      </span><span class="l"></span><span class="e"></span></h1>
-
-<div class="row mt-0">
-	<aside class="col-sm-4">
-	</aside> <!-- col.// -->
-
-	<aside class="col-sm-4">
-		<h1 style="color: yellow; font-weight: bold; font-size: 40px" class="text-md-center"><span class="g"></span><span class="o"></span><span class="o1"></span>HCF LIBRARY<span class="g"></span><span class="l"></span><span class="e"></span></h1>
+<div class="row mt-0 justify-content-center">
+	<aside class="col-sm-6">
+		<h1 style="color: yellow; font-weight: bold; font-size: 40px" class="text-md-center">WELCOME TO HCF RESOURCE CENTRE</h1>
 		<br>
-<div class="card mb-3">
+<div class="card mb-3 justify-content-center">
   <div class="d-flex justify-content-center">
     {% if messages %}
   <div class="messages">
@@ -57,23 +57,23 @@
   </div>
   {% endif %}
     </div>
-<article class="card-body" style="padding-top: 0px">
+
 
 <div class="d-flex justify-content-center">
 
   
 
 
-	<div class="container">
-  <div class="d-flex justify-content-center h-100">
-    <div class="card">
+	<div class="container" style="background-color: rgb(16, 8, 59);">
+  <div class="d-flex justify-content-center h-100" style="background-color: rgb(17, 69, 90);">
+    <div class="card btn-outline-white bg-warning">
       <div class="card-header">
         <center><h3>LOGIN</h3></center>
         <div class="d-flex justify-content-end">
           <span><i class="fab fa-user"></i></span>
         </div>
       </div>
-      <div class="card-body">
+      <div class="card-body justify-content-center">
         <form method="POST" action="{% url 'login' %}">
           {% csrf_token %}
           <div class="input-group form-group">
@@ -91,12 +91,12 @@
           </div>
           
           <div class="form-group">
-            <input type="submit" name="sign-in" value="Sign In" class="btn col-12 login_btn btn-outline-warning">
+            <input type="submit" name="sign-in" value="Sign In" class="btn col-12 btn-outline-success">
           </div>
           <p>Don't Have an Account?</p>
           <div class="form-group">
             <a href="{% url 'registerform' %}"><input name="sign-up"
-               value="Register" class="btn col-12 login_btn btn-outline-primary"></a>
+               value="Register" class="btn col-12 btn-outline-primary"></a>
           </div>
         
         </form>
@@ -114,14 +114,12 @@
 
 
 
-</article>
+
 </div> <!-- card.// -->
 
 
 
 
-	</aside> <!-- col.// -->
-	<aside class="col-sm-4">
 	</aside> <!-- col.// -->
 </div> <!-- row.// -->
 
@@ -129,6 +127,10 @@
 
 
                             
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
 
 </body>
 </html>

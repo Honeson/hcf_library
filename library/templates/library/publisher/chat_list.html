@@ -24,7 +24,7 @@
 
 <div class="row ">
     <div class="col-sm-8">
-    <a href="{% url 'user_chat_list' %}"><button class="btn btn btn-primary"><i class="fa fa-refresh" aria-hidden="true"></i>
+    <a href="{% url 'publisher_chat_list' %}"><button class="btn btn btn-primary"><i class="fa fa-refresh" aria-hidden="true"></i>
     Rerfresh For Any New Chats</button></a><br><br><br>
 
     {% for chat in chats %}
@@ -33,14 +33,14 @@
         <div class="chat" style="width: 150%; background: white; box-shadow: 2px 0px 25px 20px #111;">
             {% if chat.user.is_superuser or chat.user.is_admin %}
                 
-                <small class="chat-user-special text-success"> {{ chat.user.username }}- Admin </small>
+                <small class="chat-user-special text-success"> {{ chat.user }}- Admin </small>
 
             {% elif chat.user.is_publisher %}
-                <small class="chat-user-special text-danger"> {{ chat.user.username }}- Publisher </small>    
+                <small class="chat-user-special text-danger"> {{ chat.user }}- Publisher </small>    
 
             {% else %}
 
-                        <small class="chat-user text-primary"> {{ chat.user.username }} - User </small>              
+                        <small class="chat-user text-primary"> {{ chat.user }} - User </small>              
 
             {% endif %}
             <p><b class="chat-content">{{ chat|linebreaks }}</b></p>

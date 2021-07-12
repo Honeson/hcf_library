@@ -19,12 +19,29 @@ from .views import (
      publisher_add_post,
      PublisherPostListView,
      publisher_search,
-     publisher_detail,
+     #publisher_detail,
      PublisherChatList,
      PublisherCreateChat,
      PublisherManagePost,
      PublisherDeleteView,
      PublisherDetailView,
+     PublisherUpdateView,
+     AdminCreateChat, 
+     AdminChatList,
+     admin_add_post,
+     AdminPostListView,
+     #admin_detail,
+     AdminManagePost,
+     AdminDetailView, 
+     AdminDeleteView,
+     AdminUpdateView,
+     admin_search,
+     AdminFeedbackList,
+     admin_create_user,
+     ListUserView,
+     AdminUserDetailView,
+     AdminUserDeleteView,
+     AdminUserUpdateView,
 )
 from django.contrib.auth import views as auth_views
 
@@ -43,6 +60,30 @@ urlpatterns = [
 
      # System admin's URLs
      path('systemadmin/', admin_view, name='admin_dashboard'),
+     path('admin-create-user/', admin_create_user, name='admin_create_user'),
+     path('admin-list-user/', ListUserView.as_view(), name='admin_list_user'),
+     path('admin-add-post/', admin_add_post, name='admin_add_post'),
+     path('admin-search/', admin_search, name='admin_search'),
+     path('admin-list/', AdminPostListView.as_view(), name='admin_list'),
+     
+     path('admin-create-chat/', AdminCreateChat.as_view(), name='admin_create_chat'),
+     path('admin-chat-list/', AdminChatList.as_view(), name='admin_chat_list'),
+     path('admin-feedback-list/', AdminFeedbackList.as_view(), name='admin_feedback_list'),
+
+     path('admin-detail/<slug:slug>/', AdminDetailView.as_view(), name='admin_detail'),
+     path('admin-manage-post/', AdminManagePost.as_view(), name='admin_manage_posts'),
+     path('admin-delete-post/<slug:slug>/', AdminDeleteView.as_view(), name='admin_delete_post'),
+     path('admin-update/<slug:slug>/', AdminUpdateView.as_view(), name='admin_update'),
+
+     path('admin-user-detail/<int:pk>/', AdminUserDetailView.as_view(), name='admin_user_detail'),
+     path('admin-user-update/<int:pk>/', AdminUserUpdateView.as_view(), name='admin_user_update'),
+     path('admin-user-delete/<int:pk>/', AdminUserDeleteView.as_view(), name='admin_user_delete'),
+
+
+
+
+
+
 
      # Publisher's URLs
      path('publisher/', publisher_view, name='publisher_dashboard'),
@@ -52,9 +93,10 @@ urlpatterns = [
      path('publisher-create-chat/', PublisherCreateChat.as_view(), name='publisher_create_chat'),
      path('publisher-chat-list/', PublisherChatList.as_view(), name='publisher_chat_list'),
      path('publisher-manage-post/', PublisherManagePost.as_view(), name='publisher_manage_posts'),
-     path('publisher/<slug:slug>/', publisher_detail, name='publisher_detail'),
-     path('publisher-deelete-post/<slug:slug>', PublisherDeleteView.as_view(), name='publisher_delete_post'),
-      path('publisher-detail/<slug:slug>', PublisherDetailView.as_view(), name='publisher_detail'),
+     #path('publisher/<slug:slug>/', publisher_detail, name='publisher_detail'),
+     path('publisher-delete-post/<slug:slug>', PublisherDeleteView.as_view(), name='publisher_delete_post'),
+     path('publisher-detail/<slug:slug>', PublisherDetailView.as_view(), name='publisher_detail'),
+     path('publisher-update/<slug:slug>', PublisherUpdateView.as_view(), name='publisher_update'),
 
 
      # User's URLs

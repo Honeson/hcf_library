@@ -1,10 +1,19 @@
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
+from users.models import CustomUser
 from bootstrap_modal_forms.mixins import PopRequestMixin, CreateUpdateAjaxMixin
 from django.forms import ModelForm, fields
+from django.template.defaultfilters import default
 from .models import Chat, Post, Category
 from django import forms
 
+from library import models
+
+
+choices = (
+    ('p', 'publish'),
+    ('d', 'draft'),
+    
+)
 
 class ChatForm(forms.ModelForm):
     class Meta:
@@ -16,6 +25,12 @@ class CategoryForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ('title', 'author', 'desc', 'published_date', 'category',)
+
+
+class UpdateForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ('title', 'desc', 'file', 'status','category',)
 
 
 class SearchForm(forms.Form):
@@ -36,7 +51,11 @@ class SearchForm(forms.Form):
         self.fields['q'].widget.attrs.update(
             {'placeholder': 'Search for posts'}
         )
-
+choices = (
+    ('p', 'publish'),
+    ('d', 'draft'),
+    
+)
 
 class AddPostForm(forms.Form):
     category = forms.ModelChoiceField(
@@ -45,6 +64,7 @@ class AddPostForm(forms.Form):
     title = forms.CharField()
     desc = forms.CharField()
     file = forms.FileField()
+    status = forms.ChoiceField(choices=choices)
     
 
     def __init__(self, *args, **kwargs):
@@ -74,6 +94,11 @@ class AddPostForm(forms.Form):
         )
     
        
+
+class UserUpdateForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ('username', 'first_name', 'last_name', 'email')
         
     
 
