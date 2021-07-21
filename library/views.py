@@ -29,6 +29,9 @@ from django.db.models.query_utils import Q
 class AboutUsView(TemplateView):
     template_name = 'library/about.html'
 
+def hcf(request):
+    return render(request, 'library/hcf.html')
+
 # class PostDetailView(TemplateView):
 # 	template_name = 'library/user/detail.html'
 
@@ -92,7 +95,7 @@ class UserPostListView(LoginRequiredMixin, ListView):
     model = Post
     template_name = 'library/user/post_list.html'
     context_object_name = 'all_posts'
-    paginate_by = 5
+    paginate_by = 8
 
     def get_queryset(self):
         return Post.objects.filter(status='p')

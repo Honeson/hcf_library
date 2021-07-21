@@ -38,6 +38,7 @@ class Post(models.Model):
     author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='library_posts', blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.PROTECT, default=1)
     desc = models.CharField(max_length=1000)
+    img = models.ImageField(upload_to=user_img_directory_path, default='images/help.PNG')
     file = models.FileField(upload_to=user_directory_path, null=True, blank=True)
     status = models.CharField(max_length=1, choices=choices, default='p')
     published_date = models.DateTimeField(default=timezone.now)

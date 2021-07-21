@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+{% load static %}
+
+
+	<title>Register</title>
+
+
+<style>
+  html,body{
+
+background-size: cover;
+background-repeat: no-repeat;
+height: 100%;
+font-family: 'Numans', sans-serif;
+}
+</style>
+
+</head>
+<!--Coded with love by Mutiullah Samim-->
+<body id="register-body" style="background-image: url('{% static 'library/images/pex4.jpg' %}')">
+
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+<div class="container justify-content-center">
+<br> 
+<div class="row justify-content-center">
+
+	<aside class="col-sm-6">
+		<h1 style="color: yellow; font-weight: bold; font-size: 40px" class="text-md-center">
+      CREATE YOUR ACCOUNT</h1>
+		<br>
+<div class="card">
+<div class="d-flex justify-content-center">
+ 
+
+
+
+	<div class="container" style="background-color: rgb(16, 8, 59);">
+  <div class="d-flex justify-content-center" style="background-color: rgb(17, 69, 90);">
+    <div class="card btn-outline-white bg-warning">
+      <div class="card-header">
+        <center><h3>REGISTER</h3></center>
+        <div class="d-flex justify-content-end">
+          <span><i class="fab fa-user"></i></span>
+        </div>
+      </div>
+      <div class="card-body">
+        <form method="POST" action="{% url 'register' %}">
+          {% csrf_token %}
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div> 
+            <input type="text" class="form-control" placeholder="First Name" name="firstname" required="">
+          </div>
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+            <input type="text" class="form-control" placeholder="Last Name" name="lastname" required="">
+          </div>
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+            <input type="text" class="form-control" placeholder="middlename" name="middlename" required="">
+            
+          </div>
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-edit"></i></span>
+            </div>
+            <input type="email" class="form-control" placeholder="email" name="email" required="">
+          </div>
+
+
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-mars-double"></i></span>
+              </div>
+            <select class="form-control" id="gender" name="gender">
+              <option>Select Gender</option>
+              <option>Male</option>
+              <option>Female</option>
+            </select>
+          </div>
+
+
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+              </div>
+              <label for="birthday">Date of Birth:</label>
+              <input type="date" id="birthday" name="birthday">
+          </div>
+
+
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-flag"></i></span>
+              </div>
+            <select class="form-control" id="coutry">
+              <option>Select Country</option>
+              <option>Nigeria</option>
+              <option>Ghana</option>
+            </select>
+          </div>
+
+          <div class="input-group form-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-image"></i></span>
+              </div>
+              <label for="birthday">Passport:</label>
+              <input type="file" id="file" name="file">
+          </div>
+
+          
+
+
+           <div class="input-group form-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-key"></i></span>
+            </div>
+            <input type="password" class="form-control" placeholder="password" name="password" required="">
+          </div>
+          <div class="form-group">
+            <input type="submit" name="sign-up" value="Register" class="btn btn-outline-success col-12">
+          </div>
+          <p>Already Have An Account?</p>
+          <div class="form-group">
+            <a href="{% url 'login' %}"><input name="sign-in" value="Login" class="btn btn-outline-primary col-12"></a>
+          </div>
+
+          
+        </form>
+   </div>
+        
+    </div>
+  </div>
+</div>
+		
+
+
+</div> <!-- card.// -->
+
+
+
+
+	</aside> <!-- col.// -->
+
+</div> <!-- row.// -->
+
+</div> 
+
+
+                            
+
+</body>
+</html>
+

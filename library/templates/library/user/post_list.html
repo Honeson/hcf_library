@@ -1,155 +1,61 @@
 {% extends 'library/user/base.html' %}
 {% load static %}
 {% block body %}
-<div class="container-fluid">
-<div class="row" style="padding-top: 87px">
-<div class="col-sm-1" style="color: red">
-</div>
-<div class="col-sm-10">
-  <div class="card mb-3">
-    <div class="card-header">
-      <i class="fa fa-table text-primary"></i>
-      Recent Added Posts
-    </div>
-    <div class="card-body">
-      <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <a href="#"></a>
-          <a  class="btn btn-sm btn-success" href="" 
-                    style="padding: 8px; float: right; background-color: green; color: white;">DASHBOARD</a>
-        </li>
-      </ol>
-        {% for message in messages %}
-            <div class="alert alert-{{ message.tags }} alert-dismissible" role="alert">
-              {{ message }}
-            </div>
-        {% endfor %}
-        <div class="card mb-3">
-          <div class="card-body">
-            <div class="table-responsive">
-<!-- Table --->
-              <table class="table table-bordered" id="myDataTable" width="100%" cellspacing="0">
-                  <thead>
-                      <tr>
-                          <th>ID</th>
-                          <th>Title</th>
-                          <th>Description</th>
-                          <th>Content</th>
-                          <th>Download</th>
-                      </tr>
-                    </thead>
-                      <tbody>
-                           <!-- if and for -->
-                        {% if all_posts %}
-                          {% for post in all_posts %}
-                            <tr>
-                              <td>{{ post.id }}</td>
-                              <td>{{ post.title }}</td>
-                              <td>{{ post.desc }} <br> 
-                                <a href="{{ post.get_absolute_url }}" class="btn btn-outline-primary">View more</a></td>
-                              <td>
-                                {% if post.file %}
-                                  {% if post.extension == '.jpg' or post.extension == '.jpeg' or post.extension == '.png' or post.extension == '.gif' or post.extension == '.webp' %}
-                                    <img src="{{ post.file.url }}" alt="{{ post.title}}" width="320" height="240">
-
-                                  {% elif post.extension == '.mp4' or post.extension == '.mpeg' or post.extension == '.ogg'  %}
-                                  <video width="320" height="240" controls>
-                                  {% if post.extension == '.mp4' %}
-                                    <source src="{{ post.file.url }}" type="video/mp4">
-                                    {% elif post.extension == '.ogg' %}
-                                    <source src="{{ post.file.url }}" type="video/ogg">
-                                    {% else %}
-                                  Your browser does not support the video tag.
-                                  {% endif %}
-                                  </video>
-                                   
-
-                                  {% elif post.extension == '.mp3' or post.extension == '.aac' or post.extension == '.mid' or post.extension == '.midi' or post.extension == '.oga' or post.extension == '.opus' or post.extension == '.wav' or  post.extension == '.weba' %}
-                                  <audio controls>
-                                    {% if post.extension == '.mp3' %}
-                                      <source src="{{ post.file.url }}" type="audio/mpeg">
-                                      {% elif post.extension == '.ogg' %}
-                                      <source src="{{ post.file.url }}" type="audio/ogg">
-                                      {% else %}
-                                    Your browser does not support the video tag.
-                                    {% endif %}
-                                  </audio>
-
-                                  {% elif post.extension == '.zip' or post.extension == '.7z' or post.extension == '.doc' or post.extension == '.pdf' or post.extension == '.txt' or post.extension == '.xls' or post.extension == '.csv' %}
-                                    <p>You can't preview this file. Kindly download to view.</p>  
-                                  <a href="{{ post.get_absolute_url }}" class="btn btn-outline-primary">View more</a>
-                                  {% else %}
-                                      <span>File type not recognized</span>
-                                  {% endif %}
-                                {% else %}
-                                  <span class="text-muted">No content</span>
-                                {% endif %}
-                              </td>
-                                <td>
-                                  {% if post.file %}
-                                    <a href="{{ post.file.url }}" download class="btn btn-outline-success">Download</a>
-                                  {% else %}
-                                    <span class="text-muted">No file</span>
-                                  {% endif %} 
-                                </td>
-                            </tr>
-                                <!-- end for and if -->
-                          {% endfor %}
-                        {% endif %} 
-                            </tbody>
-                        </table>
-
-{% if is_paginated %}
-  <ul class="pagination justify-content-center">
-    {% if page_obj.has_previous %}
-      <li class="page-item"> <a class="page-link" href="?page={{ page_obj.previous_page_number }} " 
-        aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-        <span>Previous</span></a></li>
-    {% endif %}
-    {% for i in paginator.page_range %}
-      {% if page_obj.number == i %}
-        
-        <li class="page-item active"><span class="page-link">{{ i }}<span class="sr-only"></span> </span>
-        </li>
-      {% else %}
-        
-        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-      {% endif %}
-    {% endfor %}
-    {% if page_obj.has_next %}
-    <li class="page-item">
-      <a class="page-link" href="?page= {{ comments.next_page_number }}" aria-label="Previous">
-        <span aria-hidden="true">&raquo;</span>
-        <span>Next</span>
-      </a>
-    </li>
-    {% endif %}
-  </ul>
-{% endif %}
-
-
-
-
-
-
-
-
-
+<h1 class="col-12 text-center text-primary">LIST OF POSTS</h1>
+        <div class="album py-5 bg-light">
+            <div class="container">
+              <div class="row">
+            
+            {% for post in all_posts %}
+                <div class="col-md-3">
+                <a class="text-dark" href="{{post.get_absolute_url}}" style="text-decoration: none;">
+                  <div class="card mb-4 box-shadow">
+                    <img class="card-img-top" src="{{ post.img.url }}" alt="{{ post.title }}" height="150px">
+                    <div class="card-body">
+                      <h2 style="font-size:18px;font-weight:bold">{{post.title|truncatechars:50}}</h2>
+                      <p class="card-text">{{post.desc|safe|truncatechars:50}}</p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">By {{ post.author }} on {{ post.published_date }}</small>
+                      </div>
+                      <a href="{{ post.get_absolute_url }}" style="text-decoration: none; border-bottom: 2px solid blue;">View Content</a>
                     </div>
+                  </div>
+                  </a>
                 </div>
+            {% endfor %}
+              </div>
             </div>
-        </div>
 
-    </div>  
-</div>
+            {% if is_paginated %}
+            <ul class="pagination justify-content-center">
+              {% if page_obj.has_previous %}
+                <li class="page-item"> <a class="page-link" href="?page={{ page_obj.previous_page_number }} " 
+                  aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+                  <span>Previous</span></a></li>
+              {% endif %}
+              {% for i in paginator.page_range %}
+                {% if page_obj.number == i %}
+                  
+                  <li class="page-item active"><span class="page-link">{{ i }}<span class="sr-only"></span> </span>
+                  </li>
+                {% else %}
+                  
+                  <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+              {% endfor %}
+              {% if page_obj.has_next %}
+              <li class="page-item">
+                <a class="page-link" href="?page= {{ page_obj.next_page_number }}" aria-label="Previous">
+                  <span aria-hidden="true">&raquo;</span>
+                  <span>Next</span>
+                </a>
+              </li>
+              {% endif %}
+            </ul>
+          {% endif %}
 
-
-
-<div class="col-sm-1">
-</div>
-
-
-</div>
+          </div>
+          
 
 {% endblock %}
 

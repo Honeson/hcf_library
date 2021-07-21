@@ -42,12 +42,14 @@ from .views import (
      AdminUserDetailView,
      AdminUserDeleteView,
      AdminUserUpdateView,
+     hcf,
 )
 from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
      # path('', login_form, name='home'),
+     path('hcf/', hcf, name='hcf'),
      path('registerform/', user_registration_form, name='registerform'),
      path('register/', register_view, name='register'),
      path('login/', login_view, name='login'),
