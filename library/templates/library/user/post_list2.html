@@ -1,0 +1,141 @@
+{% extends 'library/user/base.html' %}
+{% load static %}
+{% block body %}
+{% block css %}
+<meta name="generator" content="">
+
+
+<link href="{% static 'library/scrorilo/css/style.css' %}" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Dosis:200,300,400,500,600,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto:200,300,400,500,600,700" rel="stylesheet">
+<style>
+	.header {
+		background-image:url('{% static 'library/images/pex4.jpg' %}');
+	}
+	
+</style>
+{% endblock css %}
+
+
+<header class="item header margin-top-10">
+<div class="wrapper">
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <div class="text-pageheader">
+        <div class="subtext-image" data-scrollreveal="enter bottom over 1.7s after 0.1s">
+          <h1 class="col-12 text-center text-primary">LIST OF POSTS</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</header>
+
+<!-- CONTENT =============================-->
+<section class="item content">
+<div class="container toparea">
+<div class="underlined-title">
+  <div class="editContent">
+    <h1 class="text-center latestitems">OUR CONTENTS</h1>
+  </div>
+  <div class="wow-hr type_short">
+    <span class="wow-hr-h">
+    <i class="fa fa-star" style="color: blue;"></i>
+    <i class="fa fa-star" style="color: blue;"></i>
+    <i class="fa fa-star" style="color: blue;"></i>
+    </span>
+  </div>
+</div>
+<div class="row">
+  {% for post in all_posts %}
+  <div class="col-md-4">
+    <div class="productbox">
+      <div class="fadeshop">
+        <div class="captionshop text-center" style="display: none;">
+          <h3>{{ post.title }}</h3>
+          <p>
+            {{ post.desc }}
+          </p>
+          <p>
+            {% if post.file %}
+            <a href="{{ post.file.url }}" 
+            class="learn-more detailslearn" download><i class="fa fa-download"></i> Download</a>
+            {% else %}
+            <a href="#" class="learn-more detailslearn"><i 
+              class="fa fa-download"></i> No File</a>
+          {% endif %} 
+            <a href="{{ post.get_absolute_url }}" class="learn-more detailslearn"><i class="fa fa-link"></i> Details</a>
+          </p>
+        </div>
+        <span class="maxproduct">
+          <img src="{{ post.img.url }}" alt="" width="320px">
+        </span>
+      </div>
+      <div class="product-details">
+        <a href="#">
+        <h1>{{ post.title }}</h1>
+        </a>
+        <span class="price">
+        <span class="edd_price">{{ post.author }} | {{ post.published_date }}</span>
+        </span>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+
+  </div>
+ 
+ 
+</div>
+
+</div>
+</div>
+</section>
+
+            {% if is_paginated %}
+            <ul class="pagination justify-content-center">
+              {% if page_obj.has_previous %}
+                <li class="page-item"> <a class="page-link" href="?page={{ page_obj.previous_page_number }} " 
+                  aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+                  <span>Previous</span></a></li>
+              {% endif %}
+              {% for i in paginator.page_range %}
+                {% if page_obj.number == i %}
+                  
+                  <li class="page-item active"><span class="page-link">{{ i }}<span class="sr-only"></span> </span>
+                  </li>
+                {% else %}
+                  
+                  <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+              {% endfor %}
+              {% if page_obj.has_next %}
+              <li class="page-item">
+                <a class="page-link" href="?page= {{ page_obj.next_page_number }}" aria-label="Previous">
+                  <span aria-hidden="true">&raquo;</span>
+                  <span>Next</span>
+                </a>
+              </li>
+              {% endif %}
+            </ul>
+          {% endif %}
+
+          </div>
+          
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+

@@ -93,9 +93,9 @@ def logout_view(request):
 
 class UserPostListView(LoginRequiredMixin, ListView):
     model = Post
-    template_name = 'library/user/post_list.html'
+    template_name = 'library/user/post_list2.html'
     context_object_name = 'all_posts'
-    paginate_by = 8
+    paginate_by = 6
 
     def get_queryset(self):
         return Post.objects.filter(status='p')
@@ -138,7 +138,7 @@ def feedback_view(request):
 
 def user_detail(request, slug):
     post = get_object_or_404(Post, slug=slug)
-    return render(request, 'library/user/detail.html', {'post': post})
+    return render(request, 'library/user/product.html', {'post': post})
 
 
 class UserCategoryListView(ListView):
@@ -278,7 +278,8 @@ class PublisherManagePost(LoginRequiredMixin,ListView):
 
 class PublisherDetailView(LoginRequiredMixin, SuccessMessageMixin, DetailView):
     model = Post
-    template_name = 'library/publisher/post_detail.html'
+    context_object_name = 'post'
+    template_name = 'library/publisher/detail.html'
 
 class PublisherUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Post
@@ -368,6 +369,7 @@ class AdminManagePost(LoginRequiredMixin,ListView):
 
 class AdminDetailView(LoginRequiredMixin, DetailView):
     model = Post
+    context_object_name = 'post'
     template_name = 'library/admin/post_detail.html'
 
 class AdminUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):

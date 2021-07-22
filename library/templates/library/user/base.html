@@ -10,9 +10,7 @@
     <title>Library</title>
     {% endblock title %}
     {% load static %}
-    <!-- Custom fonts for this template-->
-    
-
+ 
     <!-- Page level plugin CSS-->
     <link href="{% static 'library/css/dataTables.bootstrap.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css">
@@ -298,6 +296,21 @@ integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxV
     responsive: true
 } );
 
+</script>
+
+<script src="{% static 'js/anim.js' %}"></script>
+<script>
+//----HOVER CAPTION---//	  
+jQuery(document).ready(function ($) {
+	$('.fadeshop').hover(
+		function(){
+			$(this).find('.captionshop').fadeIn(150);
+		},
+		function(){
+			$(this).find('.captionshop').fadeOut(150);
+		}
+	);
+});
 </script>
 
 {% block javascript %}{% endblock javascript%}

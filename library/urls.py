@@ -96,9 +96,9 @@ urlpatterns = [
      path('publisher-chat-list/', PublisherChatList.as_view(), name='publisher_chat_list'),
      path('publisher-manage-post/', PublisherManagePost.as_view(), name='publisher_manage_posts'),
      #path('publisher/<slug:slug>/', publisher_detail, name='publisher_detail'),
-     path('publisher-delete-post/<slug:slug>', PublisherDeleteView.as_view(), name='publisher_delete_post'),
-     path('publisher-detail/<slug:slug>', PublisherDetailView.as_view(), name='publisher_detail'),
-     path('publisher-update/<slug:slug>', PublisherUpdateView.as_view(), name='publisher_update'),
+     path('publisher-delete-post/<slug:slug>/', PublisherDeleteView.as_view(), name='publisher_delete_post'),
+     path('publisher-detail/<slug:slug>/', PublisherDetailView.as_view(), name='publisher_detail'),
+     path('publisher-update/<slug:slug>/', PublisherUpdateView.as_view(), name='publisher_update'),
 
 
      # User's URLs

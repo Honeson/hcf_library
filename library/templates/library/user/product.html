@@ -1,0 +1,134 @@
+
+{% extends 'library/user/base.html' %}
+{% load static %}
+{% block title %}
+<title>{{post.title}}</title>
+{% endblock title %}
+{% block body %}
+
+
+{% block css %}
+<meta name="generator" content="">
+
+
+<link href="{% static 'library/scrorilo/css/style.css' %}" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Dosis:200,300,400,500,600,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Roboto:200,300,400,500,600,700" rel="stylesheet">
+<style>
+	.header {
+		background-image:url( {{ post.img.url }} );
+	}
+	
+</style>
+{% endblock css %}
+
+<!-- HEADER =============================-->
+<header class="item header margin-top-10" >
+<div class="wrapper">
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<div class="text-pageheader">
+					<div class="subtext-image" data-scrollreveal="enter bottom over 1.7s after 0.0s">
+						{{ post.title | title }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</header>
+
+<!-- CONTENT =============================-->
+<section class="item content">
+<div class="container toparea">
+	<div class="underlined-title">
+		<div class="editContent">
+			<h1 class="text-center latestitems">{{ post.title }}</h1>
+		</div>
+		<div class="wow-hr type_short">
+			<span class="wow-hr-h">
+			<i class="fa fa-star" style="color: blue;"></i>
+			<i class="fa fa-star" style="color: blue;"></i>
+			<i class="fa fa-star" style="color: blue;"></i>
+			</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-8">
+			<div class="productbox">
+				<!-- <img src="{% static 'library/scrorilo/images/product2-2.jpg' %}" alt=""> -->
+				{% if post.file %}
+				{% if post.extension == '.jpg' or post.extension == '.jpeg' or post.extension == '.png' or post.extension == '.gif' or post.extension == '.webp' %}
+				  <img src="{{ post.file.url }}" alt="{{ post.title}}" width="700px" height="650px">
+	
+				{% elif post.extension == '.mp4' or post.extension == '.mpeg' or post.extension == '.ogg'  %}
+				<video width="700" height="700" controls>
+				{% if post.extension == '.mp4' %}
+				  <source src="{{ post.file.url }}" type="video/mp4">
+				  {% elif post.extension == '.ogg' %}
+				  <source src="{{ post.file.url }}" type="video/ogg">
+				  {% else %}
+				Your browser does not support the video tag.
+				{% endif %}
+				</video>
+				 
+	
+				{% elif post.extension == '.mp3' or post.extension == '.aac' or post.extension == '.mid' or post.extension == '.midi' or post.extension == '.oga' or post.extension == '.opus' or post.extension == '.wav' or  post.extension == '.weba' %}
+				<audio controls>
+				  {% if post.extension == '.mp3' %}
+					<source src="{{ post.file.url }}" type="audio/mpeg">
+					{% elif post.extension == '.ogg' %}
+					<source src="{{ post.file.url }}" type="audio/ogg">
+					{% else %}
+				  Your browser does not support the video tag.
+				  {% endif %}
+				</audio>
+	
+				{% elif post.extension == '.zip' or post.extension == '.7z' or post.extension == '.doc' or post.extension == '.pdf' or post.extension == '.txt' or post.extension == '.xls' or post.extension == '.csv' %}
+				  <p>You can't preview this file. Kindly download to view.</p>  
+				<a href="{{ post.file.url }}" class="btn btn-outline-primary" download>Download</a>
+				{% else %}
+					<span>File type not recognized</span>
+				{% endif %}
+			  {% else %}
+				<span class="text-muted">No File</span>
+			  {% endif %}
+		 
+				<div class="clearfix">
+				</div>
+				<br/>
+				{% if post.file %}
+					<div class="container">
+						<a class="btn btn-outline-success col-12">Download</a>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+		<div class="col-md-4">
+			<a href="#" class="btn btn-buynow">DESCRIPTION</a>
+			<div class="properties-box">
+				<p>
+					{{ post.desc }}
+				</p>
+			</div>
+			<hr>
+			<div class="container"> 
+				<a class="btn btn-outline-success col-5">Download</a> <a class="btn btn-outline-primary col-5 float-right">Back to Home</a>
+			</div>
+		</div>
+	</div>
+</div>
+</section>
+
+
+<!-- Load JS here for greater good =============================-->
+
+{% block javascript %}
+
+<script src="js/anim.js"></script>
+
+{% endblock javascript%}
+{% endblock body %}
+
