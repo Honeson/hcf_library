@@ -57,7 +57,7 @@
         <div class="captionshop text-center" style="display: none;">
           <h3>{{ post.title }}</h3>
           <p>
-            {{ post.desc }}
+            {{ post.desc | truncatechars:80}}
           </p>
           <p>
             {% if post.file %}
