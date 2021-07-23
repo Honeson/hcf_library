@@ -100,7 +100,7 @@ class UserPostListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return Post.objects.filter(status='p')
 
-
+#For chatting
 class UserCreateChat(LoginRequiredMixin, CreateView):
     form_class = ChatForm
     model = Chat
