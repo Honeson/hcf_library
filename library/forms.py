@@ -30,7 +30,7 @@ class CategoryForm(forms.ModelForm):
 class UpdateForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('title', 'desc', 'file', 'status','category',)
+        fields = ('title', 'desc', 'img', 'file', 'status','category',)
 
 
 class SearchForm(forms.Form):
@@ -63,6 +63,7 @@ class AddPostForm(forms.Form):
     )
     title = forms.CharField()
     desc = forms.CharField()
+    img = forms.ImageField()
     file = forms.FileField()
     status = forms.ChoiceField(choices=choices)
     
@@ -72,6 +73,8 @@ class AddPostForm(forms.Form):
         self.fields['category'].label = 'Select a category'
         self.fields['title'].label = ''
         self.fields['desc'].label = ''
+        self.fields['img'].label = 'Choose Cover Image'
+        self.fields['img'].required = True
         self.fields['file'].label = 'Choose File'
         self.fields['file'].required = False
 
@@ -98,7 +101,7 @@ class AddPostForm(forms.Form):
 class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = CustomUser
-        fields = ('username', 'first_name', 'last_name', 'email')
+        fields = ('username', 'first_name', 'last_name', 'email', 'is_user', 'is_publisher', 'is_admin')
         
     
 
